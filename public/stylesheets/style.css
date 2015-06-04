@@ -19,9 +19,6 @@ body {
 	color: black;
 }
 
-section > div{
-	padding: 20px;
-}
 
 header, nav, section, footer{
 	background: #eee;
