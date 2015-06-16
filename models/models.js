@@ -42,8 +42,14 @@ sequalize.sync().success(function() {
 			Quiz.create({ pregunta : 'Capital de Francia',
 						  respuesta : 'Paris'
 						});
+			Quiz.create({ pregunta : 'Presidente actual de Francia',
+						  respuesta : 'Hollande'
+						});
 			Quiz.create({ pregunta : 'Capital de Portugal',
 						  respuesta : 'Lisboa'
+						});
+			Quiz.create({ pregunta : 'Presidente actual de Portugal',
+						  respuesta : 'Cavaco'
 						})
 			.success(function(){console.log("Base de datos inicializada")});
         };
