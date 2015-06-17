@@ -24,11 +24,11 @@ exports.index = function (req, res) {
 		req.query.search = req.query.search.replace(/ /g,"%");
 		console.log("query2:", req.query.search);
 		models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
- 			res.render('quizes/index', {quizes : quizes});
+ 			res.render('quizes/index', {quizes : quizes, errors : []});
  		})
 	} else{
  		models.Quiz.findAll().then(function(quizes){
- 			res.render('quizes/index', {quizes : quizes});
+ 			res.render('quizes/index', {quizes : quizes, errors : []});
  		})
  	}
 	
@@ -36,27 +36,35 @@ exports.index = function (req, res) {
 
 // GET /quizzes/new
 exports.new = function (req, res) {
-	console.log("jejej")
  	var quiz = models.Quiz.build({pregunta: "Pregunta", respuesta: "Respuesta"});
-	console.log("jjojojojo")
 
- 	res.render('quizes/new', {quiz : quiz});
+ 	res.render('quizes/new', {quiz : quiz, errors : []});
 };
 
 // GET /quizzes/create
 exports.create = function (req, res) {
  	var quiz = models.Quiz.build(req.body.quiz);
 
-// guarda en DB los campos pregunta y respuesta de quiz
- 	quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
- 		res.redirect('/quizes');
- 	})
- };
+ 	quiz
+ 	.validate()
+ 	.then(
+ 		function(err){
+ 			if (err){
+			 	res.render('quizes/new', {quiz : quiz, errors : err.errors});
+ 			} else {	// guarda en DB los campos pregunta y respuesta de quiz
+ 				quiz
+ 				.save({fields: ["pregunta", "respuesta"]})
+ 				.then(function(){res.redirect('/quizes')})
+ 			}
+ 		}
+ 	);
+};
+
 
 
 // GET /quizzes/question
 exports.show = function (req, res) {
- 	res.render('quizes/show', {quiz : req.quiz});
+ 	res.render('quizes/show', {quiz : req.quiz, errors : []});
 };
 
 // GET /quizzes/answer
@@ -65,5 +73,5 @@ exports.answer = function (req, res) {
  	if (req.query.respuesta === req.quiz.respuesta){
 		resultado = 'Correcto';
 	}
-	res.render('quizes/answer', { quiz : req.quiz ,respuesta: resultado});
+	res.render('quizes/answer', { quiz : req.quiz ,respuesta: resultado, errors : []});
 };

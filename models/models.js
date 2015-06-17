@@ -32,9 +32,9 @@ var Quiz = sequalize.import(path.join(__dirname,'quiz'));
 exports.Quiz = Quiz; // exportar definición de la tabla Quiz
 
 // sequalize.sync() crea e inicializa tabla de preguntas en DB
-sequalize.sync().success(function() {
+sequalize.sync().then(function() {
 	// success(--) ejecuta el manejador una vez creada la tabla
-	Quiz.count().success(function(count){
+	Quiz.count().then(function(count){
 		if(count ===0) {  // la tabla se inicializa solo si esta vacia
 			Quiz.create({ pregunta : 'Capital de Italia',
 						  respuesta : 'Roma'
@@ -51,7 +51,7 @@ sequalize.sync().success(function() {
 			Quiz.create({ pregunta : 'Presidente actual de Portugal',
 						  respuesta : 'Cavaco'
 						})
-			.success(function(){console.log("Base de datos inicializada")});
+			.then(function(){console.log("Base de datos inicializada")});
         };
 	});
 });
