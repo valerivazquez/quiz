@@ -37,19 +37,24 @@ sequalize.sync().then(function() {
 	Quiz.count().then(function(count){
 		if(count ===0) {  // la tabla se inicializa solo si esta vacia
 			Quiz.create({ pregunta : 'Capital de Italia',
-						  respuesta : 'Roma'
+						  respuesta : 'Roma',
+						  tema : 'Ocio'
 						});
 			Quiz.create({ pregunta : 'Capital de Francia',
-						  respuesta : 'Paris'
+						  respuesta : 'Paris',
+						  tema : 'Ciencia'
 						});
 			Quiz.create({ pregunta : 'Presidente actual de Francia',
-						  respuesta : 'Hollande'
+						  respuesta : 'Hollande',
+						  tema : 'Ocio'
 						});
 			Quiz.create({ pregunta : 'Capital de Portugal',
-						  respuesta : 'Lisboa'
+						  respuesta : 'Lisboa',
+						  tema : 'Tecnología'
 						});
 			Quiz.create({ pregunta : 'Presidente actual de Portugal',
-						  respuesta : 'Cavaco'
+						  respuesta : 'Cavaco',
+						  tema : 'Ciencia'
 						})
 			.then(function(){console.log("Base de datos inicializada")});
         };
