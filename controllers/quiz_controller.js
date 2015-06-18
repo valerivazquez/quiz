@@ -62,8 +62,6 @@ exports.create = function (req, res) {
 
 // GET /quizzes/:id/edit
 exports.edit = function (req, res) {
-	console.log("hola!!!");
-
  	var quiz = req.quiz; // autoload de instancia de quiz
 
  	res.render('quizes/edit', {quiz : quiz, errors : []});
@@ -71,7 +69,6 @@ exports.edit = function (req, res) {
 
 // PUT /quizzes/:id
 exports.update = function (req, res) {
- 	console.log("hello!!!");
  	req.quiz.pregunta = req.body.quiz.pregunta;
  	req.quiz.respuesta = req.body.quiz.respuesta;
 
@@ -89,6 +86,18 @@ exports.update = function (req, res) {
  		}
  	);
 };
+
+// DELETE /quizzes/:id
+exports.destroy = function (req, res) {
+	console.log("id", req.quiz.pregunta, req.quiz.id);
+ 	req.quiz.destroy().then( function(){
+ 		res.redirect('/quizes');
+ 	}).catch(function(error){next(error)});
+};
+
+
+
+
 
 // GET /quizzes/question
 exports.show = function (req, res) {
