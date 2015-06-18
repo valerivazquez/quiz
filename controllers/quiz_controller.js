@@ -14,16 +14,13 @@ exports.load = function (req, res, next, quizId) {
 	
 };
 
-
-
-
 // GET /quizzes/question
 exports.index = function (req, res) {
 	console.log("query:", req.query.search);
 	if (req.query.search){
 		req.query.search = req.query.search.replace(/ /g,"%");
 		console.log("query2:", req.query.search);
-		models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
+		models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"], order:['pregunta']}).then(function(quizes){
  			res.render('quizes/index', {quizes : quizes, errors : []});
  		})
 	} else{
