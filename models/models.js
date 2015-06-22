@@ -61,3 +61,15 @@ sequalize.sync().then(function() {
 	});
 });
 
+
+// Importar la definición de la tabla Comment en comment.js
+var Comment = sequalize.import(path.join(__dirname,'comment'));
+
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+exports.Comment = Comment; // exportar definición de la tabla Comment
+
+
+
+
+
