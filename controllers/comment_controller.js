@@ -3,14 +3,11 @@ var models = require('../models/models.js');
 
 // GET /quizzes/:quizId/comments/new
 exports.new = function (req, res) {
-	console.log("new", req.params.quizId )
  	res.render('comments/new', {quizid : req.params.quizId, errors : []});
 };
 
 // GET /quizzes/create
 exports.create = function (req, res) {
-	console.log("crete", req.params.quizId )
-
  	var comment = models.Comment.build(
  		{ texto: req.body.comment.texto,
  		  QuizId : req.params.quizId
