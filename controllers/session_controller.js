@@ -1,6 +1,16 @@
 var models = require('../models/models.js');
 
 
+// MW de autorización de accesos HTTP restringidos
+exports.loginRequired = function (req, res, next){
+	if (req.session.user){
+		next();
+	} else{
+		res.redirect('l/login');
+	}
+};
+
+
 // GET /login -- formulario de login
 exports.new = function (req, res) {
 	console.log("/login")
