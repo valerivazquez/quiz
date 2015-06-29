@@ -16,7 +16,6 @@ exports.load = function (req, res, next, commentId) {
 	
 };
 
-
 // GET /quizzes/:quizId/comments/new
 exports.new = function (req, res) {
  	res.render('comments/new', {quizid : req.params.quizId, errors : []});
