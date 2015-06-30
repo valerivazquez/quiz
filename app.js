@@ -39,7 +39,25 @@ app.use(function(req, res, next){
 
     // Hacer visible req.session en las vistas
     res.locals.session = req.session;
+    
+
+    // auto-logout despues de 2 min de inactividad http
+    if (req.session.user){ // esta logado
+       if(req.session.fecha){ // y tiene fecha de ultima actividad http
+           var varNow = new Date();
+           var varBefore = new Date(req.session.fecha);
+           var varDif = (varNow.getTime() - varBefore.getTime())/60000;
+           if (varDif > 2){ // Mas de dos minutos de inactividad http
+            //  res.redirect("/logout");
+              delete req.session.user;
+              delete req.session.fecha; 
+            } else {
+                req.session.fecha = new Date();
+            }
+        }else req.session.fecha = new Date();
+    }
     next();
+
 });
 
 app.use('/', routes);

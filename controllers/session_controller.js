@@ -6,7 +6,7 @@ exports.loginRequired = function (req, res, next){
 	if (req.session.user){
 		next();
 	} else{
-		res.redirect('l/login');
+		res.redirect('/login');
 	}
 };
 
@@ -47,8 +47,9 @@ exports.create = function (req, res) {
 	});
 };
 
-// GET /login -- formulario de login
+// GET /logout -- destruir sesion
 exports.destroy = function (req, res) {
 	delete req.session.user;
+//	delete req.session.fecha;
 	res.redirect(req.session.redir.toString()); // redirección a path anterior al login
 };
